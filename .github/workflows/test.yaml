@@ -5,7 +5,7 @@ on:
       - master
 
 jobs:
-  Mydra:
+  Test:
     runs-on: ubuntu-20.04
     steps:
 
@@ -16,6 +16,7 @@ jobs:
     - uses: cachix/install-nix-action@v12
       with:
         nix_path: nixpkgs=channel:nixos-20.09
+
     - name: Build
       run: |
         nix-build -E "with import <nixpkgs> {}; callPackage ./default.nix {}"
