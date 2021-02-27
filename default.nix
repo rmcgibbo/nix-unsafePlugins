@@ -3,18 +3,20 @@
 , cmake
 , nlohmann_json
 , nixUnstable
+, nix
 , boost
 }:
 
 stdenv.mkDerivation {
-    pname = "traceFd";
+    pname = "nix-unsafePlugins";
 
     version = "0";
     src = ./.;
 
     nativeBuildInputs = [ cmake pkg-config ];
     buildInputs = [
-        nixUnstable
+        # nixUnstable
+        nix
         nlohmann_json
         boost
     ];
