@@ -3,7 +3,10 @@ on:
   push:
     branches:
       - master
-
+  pull_request:
+    branches:
+      - master
+      
 jobs:
   Test:
     runs-on: ubuntu-20.04
@@ -17,10 +20,13 @@ jobs:
       with:
         nix_path: nixpkgs=channel:nixos-20.09
 
+    # Build
     - name: Build
       run: |
+        nix-build -E "with import <nixpkgs> {}; callPackage ./default.nix { nix = nixUnstable; }" --no-out-link
         nix-build -E "with import <nixpkgs> {}; callPackage ./default.nix {}"
 
-    - name: 
+    # Test
+    - name: Test
       run: |
         ./test.sh
